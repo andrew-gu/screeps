@@ -1,0 +1,33 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "@types/lodash": "^4.14.150",
+    "@types/screeps": "^3.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-screeps": "^2.0.0",
+    "grunt": "^1.1.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-file-append": "0.0.7",
+    "grunt-jsbeautifier": "^0.2.13",
+    "grunt-rsync": "^3.0.0",
+    "grunt-screeps": "^1.4.0",
+    "grunt-shell": "^3.0.1",
+    "gruntcli": "0.0.2-security",
+    "rollup": "^2.7.6",
+    "time-grunt": "^2.0.0",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "author": "",
+  "license": "ISC"
+}
