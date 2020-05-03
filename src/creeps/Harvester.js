@@ -1,12 +1,31 @@
 // import * as utils from '../utils/GameUtils';
-var utils = require('../utils/GameUtils')
+let utils = require('../utils/GameUtils')
 
 class HarvestRunner {
     constructor () {
         this.body = [MOVE, WORK, WORK, CARRY];
+        this.role = "harvester";
         console.log('HarvestRunner instantiated');
     }
-    
+    /**
+     * 
+     * @param {Creep} creep 
+     * @param {StructureSpawn} spawn 
+     */
+    spawnHarvester (spawn) {
+        let room = spawn.room;
+
+        let harvesterCount = Memory.harvesterCount ? Memory.harvesterCount : 0;
+        let response = spawn.spawnCreep(this.body, room.name + this.role + harvesterCount, 
+            { 
+                memory: {
+                    role: 'harvester', 
+                }
+            });
+        // increment global harvesterCount
+        if (response === 0 ) { harvesterCount === 0 ? Memory.harvesterCount = 1 : Memory.harvesterCount += 1; }
+
+    }
     run (creep) {
         if (creep.store.getFreeCapacity() > 0) {
             var sources = creep.room.find(FIND_SOURCES);

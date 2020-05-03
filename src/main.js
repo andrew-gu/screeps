@@ -1,39 +1,38 @@
-// import * as Builder from './creeps/Builder';
-// import * as Harvester from './creeps/Harvester';
-// import * as Upgrader from './creeps/Upgrader';
-var Builder = require('./creeps/Builder')
-var HarvestRunner = require('./creeps/Harvester')
-var Upgrader = require('./creeps/Upgrader')
-/**
- * 
- * @param {StructureSpawn} spawn 
- * @param {Object} creepBody 
- */
-function spawnCreepBody(spawn, creepBody = [MOVE, MOVE, WORK, CARRY]) {
-    var creepID = Memory.creepID ? Memory.creepID : 0;
-    if (spawn.spawnCreep(creepBody,"c" + String(creepID),{dryRun:true}) === 0) {
-        Memory.creepID = creepID + 1;
-        
+
+let Builder = require('./creeps/Builder')
+let HarvestRunner = require('./creeps/Harvester')
+let Upgrader = require('./creeps/Upgrader')
+let Constants = require('./utils/Constants')
+
+
+
+function main() {
+
+    // Iterate over sources in each room to save them
+    for (let rname in Game.rooms) {
+        let room = Game.rooms[rname];
+        let sources = room.find(FIND_SOURCES);
+        // Memory.rooms.$RNAME.sources : { sourceId : harvesterCount }
+        for (let source of sources) {
+            if (!room.memory.sources[source.id]) {
+                room.memory.sources[source.id] = 0;
+            }
+        }   
     }
-    return spawn.spawnCreep(creepBody, "c" + String(creepID));
+    
+    // Iterate over spawns 
+    for ( let sname in Game.spawns) {
+        let spawn = Game.spawns[sname];
+        let room = spawn.room;
+        // Memory.rooms.$RNAME.spawns : [sname0, sname1, ... ]
+        // (room.memory.spawns) ? room.memory.spawns.push(sname) : room.memory.spawns = [sname];
+        
+        
+
+    
+    }
+
+
 }
 
-function loop() {
-
-    for ( var sname in Game.spawns) {
-        var spawn = Game.spawns[sname];
-        spawnCreepBody(spawn);
-    }
-
-    var harvestRunner = new HarvestRunner();
-    for (var cname in Game.creeps) {
-        var creep = Game.creeps[cname];
-        
-        harvestRunner.run(creep);
-        
-
-    }
-
-}
-
-module.exports.loop = loop;
+module.exports.loop = main;
